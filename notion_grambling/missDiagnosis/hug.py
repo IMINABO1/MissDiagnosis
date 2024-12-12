@@ -1,9 +1,14 @@
 from openai import OpenAI
 from datetime import datetime
 from model import make_prediction
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Initialize OpenAI client
-client = OpenAI(api_key="")
+openai_api_key = os.environ.get("OPENAI_KEY")
+client = OpenAI(api_key=openai_api_key)
 
 # Example outbreak data
 outbreak_data = {

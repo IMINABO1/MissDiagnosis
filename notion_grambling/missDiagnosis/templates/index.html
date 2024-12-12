@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MissDiagnosis AI - Medical Diagnosis Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #1c3d4d, #142730);
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            background-color: #4B8BF4;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .sign-up-btn {
+            background-color: #1a4ba1;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .sign-up-btn:hover {
+            background-color: #2c5fb3;
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #f9d5a7, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #ffffff;
+        }
+
+        .login-btn {
+            background-color: #1a4ba1;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #2c5fb3;
+        }
+
+        .divider {
+            margin: 20px 0;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .create-account {
+            color: #f9d5a7;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .create-account:hover {
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px;
+            }
+
+            .title {
+                font-size: 3rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class = "navbar">
+            <div class="logo">
+                <div class="logo-circle">MD</div>
+            </div>
+            <div class="nav-links">
+                <a href="#contact">Contact Us</a>
+                <a href="#about">About Us</a>
+                <a href="/signup" class="sign-up-btn">Sign Up</a>
+            </div>
+        </nav>
+
+        <main class="content">
+            <h1 class="title">MissDiagnosis AI</h1>
+            <p class="subtitle">Accurate and timely diagnosis....</p>
+            <a href="/dashboard" class="login-btn">Login to your account</a>
+            <p class="divider">Or</p>
+            <a href="/create" class="create-account">Create a new account</a>
+        </main>
+    </div>
+</body>
+</html>
