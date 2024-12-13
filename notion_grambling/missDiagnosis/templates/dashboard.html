@@ -153,7 +153,7 @@
                 const data = await response.json();
                 responseMessageDiv.textContent = data.alert_message;
                 } else {
-                console.error('Error submitting form:', await response.text());
+                console.error('Else statement Error submitting form:', await response.text());
                 }
             } catch (error) {
                 console.error('Error submitting form:', error);
