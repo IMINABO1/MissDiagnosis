@@ -5,7 +5,7 @@ import pprint
 
 
 def the_main(patient_symptoms= "Fever, headache, muscle pain, and vomiting", malaria_status="infected" ):
-    scrape_to_html()
+    # scrape_to_html() #uncomment this later
 
     with open("res.html", "r", encoding="utf-8") as f:
         html_content = f.read()
