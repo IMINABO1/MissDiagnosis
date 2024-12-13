@@ -139,9 +139,9 @@
             responseMessageDiv.textContent = "Analyzing ...";
 
             const formData = new FormData(event.target);
-            setTimeout(() => {
-                console.log("waiting")
-            }, 10000);
+            // setTimeout(() => {
+            //     console.log("waiting")
+            // }, 10000);
 
             try {
                 const response = await fetch('/dashboard', {
