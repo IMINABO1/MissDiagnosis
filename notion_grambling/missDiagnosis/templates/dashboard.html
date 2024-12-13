@@ -148,7 +148,7 @@
                 method: 'POST',
                 body: formData,
                 });
-
+                console.log(response);
                 if (response.ok) {
                 const data = await response.json();
                 responseMessageDiv.textContent = data.alert_message;
