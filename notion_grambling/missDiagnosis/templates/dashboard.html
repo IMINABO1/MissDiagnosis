@@ -133,31 +133,24 @@
         </div>
 
         <script>
-            document.querySelector('#recordForm').addEventListener('submit', async (event) => {
+            document.querySelector('#recordForm').addEventListener('submit', (event) => {
             event.preventDefault();
-            const responseMessageDiv = document.getElementById('responseMessage');
-            responseMessageDiv.textContent = "Analyzing ...";
 
             const formData = new FormData(event.target);
-            // setTimeout(() => {
-            //     console.log("waiting")
-            // }, 10000);
 
-            try {
-                const response = await fetch('/dashboard', {
-                method: 'POST',
-                body: formData,
-                });
-                console.debug(response);
-                if (response.ok) {
-                const data = await response.json();
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/dashboard', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                const data = JSON.parse(xhr.responseText);
+                console.log(data);
+                const responseMessageDiv = document.getElementById('responseMessage');
                 responseMessageDiv.textContent = data.alert_message;
                 } else {
-                console.error('Else statement Error submitting form:', await response.text());
+                console.error('Error submitting form:', xhr.responseText);
                 }
-            } catch (error) {
-                console.error('Error submitting form:', error);
-            }
+            };
+            xhr.send(formData);
             });
 
             // beginning of chart side bar

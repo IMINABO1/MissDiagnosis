@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, jsonify
 from main import the_main
+from time import sleep
 
 app = Flask(__name__)
 
@@ -14,6 +15,7 @@ def dashboard():
 @app.route('/dashboard', methods=['POST'])
 def submit_record():
     # Collect data from the form
+    print("collecting")
     patient_name = request.form.get('patient_name', '')
     dob = request.form.get('dob', '')
     symptoms = request.form.get('symptoms', '')
@@ -28,7 +30,9 @@ def submit_record():
 
     the_response = the_main(patient_symptoms=symptoms, malaria_status="infected")
     print(the_response)
-    return jsonify({'alert_message': the_response})
+    sleep(10)
+    return jsonify({'alert_message': the_response}), 200, {'Content-Type': 'application/json'}
+    # return jsonify({'alert_message': the_response})
 
 if __name__ == '__main__':
     app.run(debug=True)
