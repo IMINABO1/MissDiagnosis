@@ -10,10 +10,10 @@ def preprocess_image(image_path):
     # Add batch dimension
     return np.expand_dims(image_array, axis=0)
 
-BASE_PATH_infect = "model/dataset/iarunava/cell-images-for-detecting-malaria/versions/1/cell_images/Parasitized/"
-BASE_PATH_uninfect = "model/dataset/iarunava/cell-images-for-detecting-malaria/versions/1/cell_images/Uninfected/"
+BASE_PATH_infect = "model/testData/Parasitized/"
+BASE_PATH_uninfect = "model/testData/Uninfected/"
 # Path to the new image
-image_path = 'C241NThinF_IMG_20151207_124608_cell_22.png'
+image_path = 'uninf.png'
 
 input_image = preprocess_image(BASE_PATH_uninfect + image_path)
 

@@ -37,5 +37,4 @@ def submit_record():
     # return jsonify({'alert_message': the_response})
 
 if __name__ == '__main__':
-    app.run(debug=True, static_folder='./static')
-    
+    app.run(debug=True)
