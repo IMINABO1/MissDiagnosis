@@ -132,42 +132,58 @@
             </div>
         </div>
 
+        <!-- {% if alert_message %} -->
+        <!-- <script>
+        </script> -->
+        <!-- {% endif %} -->
+
         <script>
             document.querySelector('#recordForm').addEventListener('submit', (event) => {
+            // Prevent multiple submissions
             event.preventDefault();
 
             const formData = new FormData(event.target);
-
             const xhr = new XMLHttpRequest();
+
+            // Disable the submit button to prevent multiple submissions
+            const submitButton = event.target.querySelector('input[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+
             xhr.open('POST', '/dashboard', true);
+
             xhr.onreadystatechange = function() {
+                console.log('ReadyState:', xhr.readyState, 'Status:', xhr.status);
+                
                 if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    const data = JSON.parse(xhr.responseText);
-                    console.log(data);
-                    displayResponseMessage(data.alert_message);
-                } else {
-                    displayErrorMessage('Error submitting form: ' + xhr.statusText);
-                }
+                    // Re-enable the submit button
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                    }
+
+                    if (xhr.status === 200) {
+                        console.log('Raw response:', xhr.responseText);
+                        
+                        try {
+                            const data = JSON.parse(xhr.responseText);
+                            console.log('Parsed data:', data);
+                            
+                            const responseMessageDiv = document.getElementById('responseMessage');
+                            responseMessageDiv.textContent = data.alert_message;
+                        } catch (error) {
+                            console.error('JSON Parsing Error:', error);
+                            console.log('Problematic response:', xhr.responseText);
+                        }
+                    } else {
+                        console.error('Server Error:', xhr.status, xhr.responseText);
+                    }
                 }
             };
-            xhr.onerror = function() {
-                displayErrorMessage('Error making AJAX request.');
-            };
+
             xhr.send(formData);
             });
 
-            function displayResponseMessage(message) {
-            const responseMessageDiv = document.getElementById('responseMessage');
-            responseMessageDiv.textContent = message;
-            // You can also display the message in a more prominent way, e.g., in a modal
-            }
-
-            function displayErrorMessage(message) {
-            const responseMessageDiv = document.getElementById('responseMessage');
-            responseMessageDiv.textContent = message;
-            // You can also display the error message in a more prominent way, e.g., in a modal
-            }
 
             // beginning of chart side bar
             document.addEventListener('DOMContentLoaded', () => {
@@ -230,5 +246,11 @@
         });
 
         </script>
+
+        <!-- {% if alert_message %} -->
+        <script>
+            
+        </script>
+        <!-- {% endif %} -->
     </body>
 </html>
