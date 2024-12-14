@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Electronic Medical Record</title>
-        <link rel="icon" href="logo.png" type="image/x-icon" />
+        <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/x-icon" />
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
@@ -141,17 +141,33 @@
             const xhr = new XMLHttpRequest();
             xhr.open('POST', '/dashboard', true);
             xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                const data = JSON.parse(xhr.responseText);
-                console.log(data);
-                const responseMessageDiv = document.getElementById('responseMessage');
-                responseMessageDiv.textContent = data.alert_message;
+                if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    console.log(data);
+                    displayResponseMessage(data.alert_message);
                 } else {
-                console.error('Error submitting form:', xhr.responseText);
+                    displayErrorMessage('Error submitting form: ' + xhr.statusText);
                 }
+                }
+            };
+            xhr.onerror = function() {
+                displayErrorMessage('Error making AJAX request.');
             };
             xhr.send(formData);
             });
+
+            function displayResponseMessage(message) {
+            const responseMessageDiv = document.getElementById('responseMessage');
+            responseMessageDiv.textContent = message;
+            // You can also display the message in a more prominent way, e.g., in a modal
+            }
+
+            function displayErrorMessage(message) {
+            const responseMessageDiv = document.getElementById('responseMessage');
+            responseMessageDiv.textContent = message;
+            // You can also display the error message in a more prominent way, e.g., in a modal
+            }
 
             // beginning of chart side bar
             document.addEventListener('DOMContentLoaded', () => {

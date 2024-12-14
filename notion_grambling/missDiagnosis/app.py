@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, jsonify
 from main import the_main
-from time import sleep
+# from time import sleep
 
 app = Flask(__name__)
 
@@ -30,7 +30,7 @@ def submit_record():
 
     the_response = the_main(patient_symptoms=symptoms, malaria_status="infected")
     print(the_response)
-    sleep(10)
+    # sleep(10)
     return jsonify({'alert_message': the_response}), 200, {'Content-Type': 'application/json'}
     # return jsonify({'alert_message': the_response})
 
