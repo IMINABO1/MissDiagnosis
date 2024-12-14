@@ -163,7 +163,11 @@
                     }
 
                     if (xhr.status === 200) {
-                        console.log('Raw response:', xhr.responseText);
+                        if (xhr.responseText === ""){
+                            console.error('Empty response:',xhr);
+                        } else{
+                            console.error('Raw response:', xhr);
+                        }
                         
                         try {
                             const data = JSON.parse(xhr.responseText);
