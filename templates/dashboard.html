@@ -164,9 +164,15 @@
 
                     if (xhr.status === 200) {
                         if (xhr.responseText === ""){
-                            console.error('Empty response:',xhr);
+                            setTimeout(() => {
+                                console.error('Empty response:',xhr);
+                                }, 15000);
+                            
+
                         } else{
-                            console.error('Raw response:', xhr);
+                            setTimeout(() => {
+                                console.error('Raw response:', xhr);
+                            }, 15000);
                         }
                         
                         try {
