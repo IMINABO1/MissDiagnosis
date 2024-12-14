@@ -12,7 +12,7 @@ def index():
 def dashboard():
     return render_template('dashboard.html')
 
-@app.route('/dashboard', methods=['POST'])
+@app.route('/submit_response', methods=['POST'])
 def submit_record():
     # Collect data from the form
     print("collecting")
