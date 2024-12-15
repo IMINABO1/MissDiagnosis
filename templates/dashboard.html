@@ -201,6 +201,8 @@
                         responseMessageDiv.textContent = data.alert_message || 'No message provided';
                     } catch (error) {
                         console.error('JSON Parsing Error:', error);
+                        setTimeout(() => submitWithRetry(), 6000);
+
                         console.log('Problematic response:', responseText);
                         
                         const responseMessageDiv = document.getElementById('responseMessage');
