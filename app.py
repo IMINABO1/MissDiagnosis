@@ -42,4 +42,4 @@ def submit_record():
 
 if __name__ == '__main__':
     # port = int(os.environ.get("PORT", 8000))  # Use the PORT environment variable or default to 8000
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=1000, debug=True)
