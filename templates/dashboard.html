@@ -143,57 +143,86 @@
             event.preventDefault();
 
             const formData = new FormData(event.target);
-            const xhr = new XMLHttpRequest();
-
+            
             // Disable the submit button to prevent multiple submissions
             const submitButton = event.target.querySelector('input[type="submit"]');
             if (submitButton) {
                 submitButton.disabled = true;
             }
 
-            xhr.open('POST', '/submit_response', true);
+            // Function to handle retry logic
+            const submitWithRetry = (retriesLeft = 3) => {
+                fetch('/submit_response', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    // Check if response is ok (status in 200-299 range)
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    // Try to parse the response text
+                    return response.text();
+                })
+                .then(responseText => {
+                    // If response is empty and we have retries left, try again
+                    if (!responseText && retriesLeft > 0) {
+                        console.warn(`Empty response. Retrying... (${retriesLeft} attempts left)`);
+                        
+                        // Wait a bit before retrying
+                        return new Promise(resolve => {
+                            setTimeout(() => {
+                                resolve(submitWithRetry(retriesLeft - 1));
+                            }, 2000); // 2-second delay between retries
+                        });
+                    }
 
-            xhr.onreadystatechange = function() {
-                console.log('ReadyState:', xhr.readyState, 'Status:', xhr.status);
-                
-                if (xhr.readyState === 4) {
                     // Re-enable the submit button
                     if (submitButton) {
                         submitButton.disabled = false;
                     }
 
-                    if (xhr.status === 200) {
-                        if (xhr.responseText === ""){
-                            setTimeout(() => {
-                                console.error('Empty response:',xhr);
-                                }, 15000);
-                            
-
-                        } else{
-                            setTimeout(() => {
-                                console.error('Raw response:', xhr);
-                            }, 15000);
-                        }
-                        
-                        try {
-                            const data = JSON.parse(xhr.responseText);
-                            console.log('Parsed data:', data);
-                            
-                            const responseMessageDiv = document.getElementById('responseMessage');
-                            responseMessageDiv.textContent = data.alert_message;
-                        } catch (error) {
-                            console.error('JSON Parsing Error:', error);
-                            console.log('Problematic response:', xhr.responseText);
-                        }
-                    } else {
-                        console.error('Server Error:', xhr.status, xhr.responseText);
+                    // If truly empty after all retries
+                    if (!responseText) {
+                        console.error('Consistently empty response');
+                        const responseMessageDiv = document.getElementById('responseMessage');
+                        responseMessageDiv.textContent = 'No response from server after multiple attempts';
+                        return;
                     }
-                }
+
+                    // Try to parse JSON
+                    try {
+                        const data = JSON.parse(responseText);
+                        console.log('Parsed data:', data);
+                        
+                        const responseMessageDiv = document.getElementById('responseMessage');
+                        responseMessageDiv.textContent = data.alert_message || 'No message provided';
+                    } catch (error) {
+                        console.error('JSON Parsing Error:', error);
+                        console.log('Problematic response:', responseText);
+                        
+                        const responseMessageDiv = document.getElementById('responseMessage');
+                        responseMessageDiv.textContent = 'Error processing server response';
+                    }
+                })
+                .catch(error => {
+                    // Handle any errors in the fetch process
+                    console.error('Fetch Error:', error);
+                    
+                    // Re-enable the submit button
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                    }
+                    
+                    const responseMessageDiv = document.getElementById('responseMessage');
+                    responseMessageDiv.textContent = 'An error occurred while submitting the form';
+                });
             };
 
-            xhr.send(formData);
-            });
-
+            // Start the submission process with retry
+            submitWithRetry();
+        });
 
             // beginning of chart side bar
             document.addEventListener('DOMContentLoaded', () => {
