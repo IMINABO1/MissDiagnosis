@@ -151,7 +151,7 @@
             }
 
             // Function to handle retry logic
-            const submitWithRetry = (retriesLeft = 3) => {
+            const submitWithRetry = (retriesLeft = 100) => {
                 fetch('/submit_response', {
                     method: 'POST',
                     body: formData
