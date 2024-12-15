@@ -152,6 +152,7 @@
 
             // Function to handle retry logic
             const submitWithRetry = (retriesLeft = 100) => {
+                console.error("retries is: ", retriesLeft);
                 fetch('/submit_response', {
                     method: 'POST',
                     body: formData
@@ -221,7 +222,8 @@
             };
 
             // Start the submission process with retry
-            submitWithRetry();
+            setTimeout(() => submitWithRetry(), 12000);
+            
         });
 
             // beginning of chart side bar
