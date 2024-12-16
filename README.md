@@ -185,7 +185,7 @@ MissDiagnosis/
 ---
 
 ## 📸 **Screenshots**
-### ** Dashboard Result**
+### **Dashboard Result**
 ![Analysis Result](screenshots/analysis_result.png)
 
 ---
