@@ -28,7 +28,7 @@ def submit_record():
     allergies = request.form.get('allergies', '')
     tests_required = request.form.get('tests_required', '')
 
-    the_response = the_main(patient_symptoms=symptoms, malaria_status="infected")
+    the_response = the_main(patient_symptoms=symptoms, patient_history=medical_history, malaria_status="infected", my_diagnosis=diagnosis, medicine=medicine, tests=tests_required)
     print(the_response)
     print(jsonify({'alert_message': the_response}), 200, {'Content-Type': 'application/json'})
     return jsonify({'alert_message': the_response}), 200, {'Content-Type': 'application/json'}
