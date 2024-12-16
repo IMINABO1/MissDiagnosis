@@ -85,6 +85,59 @@ Follow these steps to set up the project on your local machine:
 
 ---
 
+## 🛠️ **Important Functions**
+Here are key functions from the core Python scripts:
+
+### `hug.py`
+#### **analyze_with_outbreaks()**
+- **Purpose**: Analyzes patient symptoms, medical history, and diagnosis against recent disease outbreaks.
+- **Inputs**:
+  - `symptoms`: Symptoms reported by the patient.
+  - `patient_history`: Past medical history.
+  - `malaria_status`: Status of malaria prediction ("infected" or "uninfected").
+  - `diagnosis`: The doctor's diagnosis input.
+  - `medicine`: Prescribed medicines.
+  - `tests`: Suggested lab tests.
+- **Outputs**: Returns a 5-line analysis focusing on epidemiology and cross-validates with recent outbreaks.
+
+### `main.py`
+#### **the_main()**
+- **Purpose**: Main workflow to coordinate outbreak scraping, parsing, and analysis.
+- **Inputs**:
+  - `patient_symptoms`: Symptoms input by the user.
+  - `patient_history`: Medical history of the patient.
+  - `malaria_status`: Output from malaria prediction.
+  - `my_diagnosis`: Doctor's diagnosis.
+  - `medicine`: Suggested medicines.
+  - `tests`: Further tests required.
+- **Workflow**:
+  1. Scrapes WHO Outbreak News using `scrape.py`.
+  2. Parses the data into a structured format with `scrape2.py`.
+  3. Calls `analyze_with_outbreaks()` from `hug.py` for diagnosis analysis.
+- **Outputs**: Returns the AI-powered analysis.
+
+### `model.py`
+#### **make_prediction()**
+- **Purpose**: Uses a custom CNN model to predict malaria infection status from a blood sample image.
+- **Inputs**:
+  - `img`: Preprocessed image array.
+- **Outputs**:
+  - Returns "infected" or "uninfected" based on the model's prediction.
+
+### `scrape.py`
+#### **scrape_to_html()**
+- **Purpose**: Scrapes the WHO Disease Outbreak News page and saves the HTML content.
+- **Outputs**:
+  - Saves the outbreak data HTML to `res.html`.
+
+### `scrape2.py`
+#### **parse_disease_outbreaks_as_dict()**
+- **Purpose**: Parses the saved HTML file (`res.html`) and extracts outbreak data into a structured dictionary.
+- **Outputs**:
+  - Returns a dictionary where each outbreak has a date and title.
+
+---
+
 ## 🧠 **Project Architecture**
 ```
 MissDiagnosis/
