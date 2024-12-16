@@ -185,11 +185,8 @@ MissDiagnosis/
 ---
 
 ## 📸 **Screenshots**
-### **1. Dashboard**
-![Dashboard Screenshot](screenshot.png)
-
-### **2. Diagnosis Analysis Result**
-![Analysis Result](analysis_result.png)
+### ** Dashboard Result**
+![Analysis Result](screenshots/analysis_result.png)
 
 ---
 
